@@ -5318,6 +5318,11 @@ var taxonNamePreferences = /*#__PURE__*/function () {
       return iNaturalistAPI.post("taxon_name_preferences", params, options).then(TaxonNamePreference.typifyInstanceResponse);
     }
   }, {
+    key: "update",
+    value: function update(params, options) {
+      return iNaturalistAPI.put("taxon_name_preferences/:id", params, options).then(TaxonNamePreference.typifyInstanceResponse);
+    }
+  }, {
     key: "delete",
     value: function _delete(params, options) {
       return iNaturalistAPI["delete"]("taxon_name_preferences/:id", params, options);
