@@ -169,13 +169,14 @@ var iNaturalistAPI = /*#__PURE__*/function () {
 
       var thisRoute = interpolated.route;
       var apiToken = options.useAuth ? iNaturalistAPI.apiToken(options) : null;
-      var headers = {
+
+      var headers = _objectSpread(_objectSpread({}, options.headers), {}, {
         Accept: "application/json",
         // DO NOT OMIT! Without this, fetch in React Native on Android will not
         // even execute the request
         "Content-Type": "application/json",
         "X-Via": "inaturalistjs"
-      };
+      });
 
       if (apiToken) {
         headers.Authorization = apiToken;
@@ -230,11 +231,11 @@ var iNaturalistAPI = /*#__PURE__*/function () {
 
       var thisRoute = interpolated.route; // set up request headers
 
-      var headers = {
+      var headers = _objectSpread(_objectSpread({}, options.headers), {}, {
         Accept: "application/json",
         "Access-Control-Allow-Methods": "GET, POST, OPTIONS, PUT, DELETE, HEAD",
         "X-Via": "inaturalistjs"
-      };
+      });
 
       if (options.user_agent) {
         headers["user-agent"] = options.user_agent;
@@ -3083,20 +3084,23 @@ var controlledTerms = /*#__PURE__*/function () {
     key: "for_taxon",
     value: // eslint-disable-line camelcase
     function for_taxon(params) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
       // eslint-disable-line camelcase
       if (iNaturalistAPI.apiURL && iNaturalistAPI.apiURL.match(/\/v2/)) {
         var taxonIds = params.taxon_id.toString().split(",").join(",");
         var newParams = Object.assign({}, params);
         delete newParams.taxon_id;
-        return iNaturalistAPI.get("controlled_terms/for_taxon/".concat(taxonIds), newParams).then(typifyResponse);
+        return iNaturalistAPI.get("controlled_terms/for_taxon/".concat(taxonIds), newParams, opts).then(typifyResponse);
       }
 
-      return iNaturalistAPI.get("controlled_terms/for_taxon", params).then(typifyResponse);
+      return iNaturalistAPI.get("controlled_terms/for_taxon", params, opts).then(typifyResponse);
     }
   }, {
     key: "search",
     value: function search(params) {
-      return iNaturalistAPI.get("controlled_terms", params, {}).then(typifyResponse);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("controlled_terms", params, opts).then(typifyResponse);
     }
   }]);
 
@@ -3401,7 +3405,8 @@ var identifications = /*#__PURE__*/function () {
   }, {
     key: "categories",
     value: function categories(params) {
-      return iNaturalistAPI.get("identifications/categories", params);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("identifications/categories", params, opts);
     }
   }]);
 
@@ -4142,7 +4147,8 @@ var observations = /*#__PURE__*/function () {
   }, {
     key: "fetch",
     value: function fetch(ids, params) {
-      return iNaturalistAPI.fetch("observations", ids, params).then(Observation.typifyResultsResponse);
+      var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return iNaturalistAPI.fetch("observations", ids, params, opts).then(Observation.typifyResultsResponse);
     }
   }, {
     key: "search",
@@ -4155,7 +4161,8 @@ var observations = /*#__PURE__*/function () {
   }, {
     key: "identifiers",
     value: function identifiers(params) {
-      return iNaturalistAPI.get("observations/identifiers", params).then(function (response) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/identifiers", params, opts).then(function (response) {
         if (response.results) {
           response.results = response.results.map(function (r) {
             return _objectSpread(_objectSpread({}, r), {}, {
@@ -4170,7 +4177,8 @@ var observations = /*#__PURE__*/function () {
   }, {
     key: "observers",
     value: function observers(params) {
-      return iNaturalistAPI.get("observations/observers", params).then(function (response) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/observers", params, opts).then(function (response) {
         if (response.results) {
           response.results = response.results.map(function (r) {
             return _objectSpread(_objectSpread({}, r), {}, {
@@ -4239,7 +4247,8 @@ var observations = /*#__PURE__*/function () {
   }, {
     key: "popularFieldValues",
     value: function popularFieldValues(params) {
-      return iNaturalistAPI.get("observations/popular_field_values", params).then(function (response) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/popular_field_values", params, opts).then(function (response) {
         if (response.results) {
           response.results = response.results.map(function (res) {
             var r = _objectSpread({}, res);
@@ -4256,7 +4265,8 @@ var observations = /*#__PURE__*/function () {
   }, {
     key: "umbrellaProjectStats",
     value: function umbrellaProjectStats(params) {
-      return iNaturalistAPI.get("observations/umbrella_project_stats", params).then(function (response) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/umbrella_project_stats", params, opts).then(function (response) {
         if (response.results) {
           response.results = response.results.map(function (r) {
             return _objectSpread(_objectSpread({}, r), {}, {
@@ -4271,46 +4281,56 @@ var observations = /*#__PURE__*/function () {
   }, {
     key: "histogram",
     value: function histogram(params) {
-      return iNaturalistAPI.get("observations/histogram", params);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/histogram", params, opts);
     }
   }, {
     key: "qualityGrades",
     value: function qualityGrades(params) {
-      return iNaturalistAPI.get("observations/quality_grades", params);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/quality_grades", params, opts);
     }
   }, {
     key: "subscriptions",
-    value: function subscriptions(params, options) {
+    value: function subscriptions(params) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       return iNaturalistAPI.get("observations/:id/subscriptions", params, iNaturalistAPI.optionsUseAuth(options));
     }
   }, {
     key: "taxonSummary",
     value: function taxonSummary(params) {
-      return iNaturalistAPI.get("observations/:id/taxon_summary", params);
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/:id/taxon_summary", params, options);
     }
   }, {
     key: "updates",
-    value: function updates(params, options) {
+    value: function updates(params) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       return iNaturalistAPI.get("observations/updates", params, iNaturalistAPI.optionsUseAuth(options));
     }
   }, {
     key: "viewedUpdates",
-    value: function viewedUpdates(params, options) {
+    value: function viewedUpdates(params) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       return iNaturalistAPI.put("observations/:id/viewed_updates", params, iNaturalistAPI.optionsUseAuth(options));
     }
   }, {
     key: "identificationCategories",
     value: function identificationCategories(params) {
-      return iNaturalistAPI.get("observations/identification_categories", params);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/identification_categories", params, opts);
     }
   }, {
     key: "taxonomy",
     value: function taxonomy(params) {
-      return iNaturalistAPI.get("observations/taxonomy", params).then(Taxon.typifyResultsResponse);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/taxonomy", params, opts).then(Taxon.typifyResultsResponse);
     }
   }, {
     key: "similarSpecies",
-    value: function similarSpecies(params, opts) {
+    value: function similarSpecies(params) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
       var options = _objectSpread({}, opts || {});
 
       options.useAuth = true;
@@ -4328,12 +4348,15 @@ var observations = /*#__PURE__*/function () {
     }
   }, {
     key: "taxa",
-    value: function taxa(params) {
-      return iNaturalistAPI.get("observations/taxa", params);
+    value: function taxa() {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("observations/taxa", params, opts);
     }
   }, {
     key: "deleted",
-    value: function deleted(params, options) {
+    value: function deleted(params) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       return iNaturalistAPI.get("observations/deleted", params, iNaturalistAPI.optionsUseAuth(options));
     }
   }]);
@@ -4461,30 +4484,36 @@ var places = /*#__PURE__*/function () {
   _createClass(places, null, [{
     key: "fetch",
     value: function fetch(ids, params) {
-      return iNaturalistAPI.fetch("places", ids, params).then(Place.typifyResultsResponse);
+      var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return iNaturalistAPI.fetch("places", ids, params, opts).then(Place.typifyResultsResponse);
     }
   }, {
     key: "autocomplete",
     value: function autocomplete(params) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
       if (iNaturalistAPI.apiURL && iNaturalistAPI.apiURL.match(/\/v2/)) {
         throw new Error("API v2 does not support places.autocomplete. Use places.search instead.");
       }
 
-      return iNaturalistAPI.get("places/autocomplete", params).then(Place.typifyResultsResponse);
+      return iNaturalistAPI.get("places/autocomplete", params, opts).then(Place.typifyResultsResponse);
     }
   }, {
     key: "search",
     value: function search(params) {
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
       if (iNaturalistAPI.apiURL && iNaturalistAPI.apiURL.match(/\/v1/)) {
         throw new Error("API v1 does not support places.search. Use places.autocomplete instead.");
       }
 
-      return iNaturalistAPI.get("places", params).then(Place.typifyResultsResponse);
+      return iNaturalistAPI.get("places", params, opts).then(Place.typifyResultsResponse);
     }
   }, {
     key: "containing",
     value: function containing(params) {
-      return iNaturalistAPI.get("places/containing", params).then(Place.typifyResultsResponse);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("places/containing", params, opts).then(Place.typifyResultsResponse);
     }
   }]);
 
@@ -5304,16 +5333,19 @@ var sites = /*#__PURE__*/function () {
   _createClass(sites, null, [{
     key: "search",
     value: function search(params) {
-      return iNaturalistAPI.get("sites", params).then(Site.typifyResultsResponse);
+      var opts = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      return iNaturalistAPI.get("sites", params, opts).then(Site.typifyResultsResponse);
     }
   }, {
     key: "fetch",
     value: function fetch(ids, params) {
+      var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
       if (!ids || ids.length === 0) {
-        return iNaturalistAPI.get("sites", params).then(Site.typifyResultsResponse);
+        return iNaturalistAPI.get("sites", params, opts).then(Site.typifyResultsResponse);
       }
 
-      return iNaturalistAPI.fetch("sites", ids, params).then(Site.typifyResultsResponse);
+      return iNaturalistAPI.fetch("sites", ids, params, opts).then(Site.typifyResultsResponse);
     }
   }]);
 
@@ -5654,7 +5686,8 @@ var users = /*#__PURE__*/function () {
     key: "fetch",
     value: function fetch(ids) {
       var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      return iNaturalistAPI.fetch("users", ids, params).then(User.typifyResultsResponse);
+      var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      return iNaturalistAPI.fetch("users", ids, params, opts).then(User.typifyResultsResponse);
     }
   }, {
     key: "update",
