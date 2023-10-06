@@ -33,7 +33,7 @@ describe( "Photo", ( ) => {
         attribution: "no rights reserved",
         id: 519,
         license_code: "cc0",
-        url: "http://static.inaturalist.org/photos/3789931/square.bmp"
+        url: "http://static.minka-sdg.org/photos/3789931/square.bmp"
       } );
       expect( p.photoUrl( "medium" ) ).to.match( /medium/ );
       expect( p.photoUrl( "large" ) ).to.match( /large/ );
@@ -45,7 +45,7 @@ describe( "Photo", ( ) => {
         attribution: "no rights reserved",
         id: 519,
         license_code: "cc0",
-        url: "http://static.inaturalist.org/photos/3789931/square"
+        url: "http://static.minka-sdg.org/photos/3789931/square"
       } );
       expect( p.photoUrl( "medium" ) ).to.match( /medium/ );
       expect( p.photoUrl( "large" ) ).to.match( /large/ );
@@ -53,7 +53,7 @@ describe( "Photo", ( ) => {
     } );
 
     it( "should return explicit photo URLs if present", ( ) => {
-      const url = "http://static.inaturalist.org/photos/123/l.jpg";
+      const url = "http://static.minka-sdg.org/photos/123/l.jpg";
       const p = new Photo( {
         large_url: url
       } );
@@ -68,7 +68,7 @@ describe( "Photo", ( ) => {
         height: 2048
       };
       const p = new Photo( {
-        url: "http://static.inaturalist.org/photos/3789931/square",
+        url: "http://static.minka-sdg.org/photos/3789931/square",
         original_dimensions: originalDimensions
       } );
       expect( p.dimensions( ) ).to.eq( originalDimensions );
@@ -79,7 +79,7 @@ describe( "Photo", ( ) => {
         height: 2048
       };
       const p = new Photo( {
-        url: "http://static.inaturalist.org/photos/3789931/square",
+        url: "http://static.minka-sdg.org/photos/3789931/square",
         original_dimensions: originalDimensions
       } );
       expect( p.dimensions( "medium" ).height ).to.eq( 500 );
@@ -87,7 +87,7 @@ describe( "Photo", ( ) => {
     } );
     it( "should return nothing for any size if no dimensions", ( ) => {
       const p = new Photo( {
-        url: "http://static.inaturalist.org/photos/3789931/square"
+        url: "http://static.minka-sdg.org/photos/3789931/square"
       } );
       expect( p.dimensions( ) ).not.to.exist;
       expect( p.dimensions( "medium" ) ).not.to.exist;
@@ -98,7 +98,7 @@ describe( "Photo", ( ) => {
         height: 300
       };
       const p = new Photo( {
-        url: "http://static.inaturalist.org/photos/3789931/square",
+        url: "http://static.minka-sdg.org/photos/3789931/square",
         original_dimensions: originalDimensions
       } );
       expect( p.dimensions( ).width ).to.eq( originalDimensions.width );

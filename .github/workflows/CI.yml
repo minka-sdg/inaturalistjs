@@ -1,4 +1,4 @@
-name: inaturalistjs CI
+name: minkajs CI
 
 on: [push, pull_request]
 

@@ -3,9 +3,9 @@ const path = require( "path" );
 const config = {
   mode: "none",
   target: ["web", "es5"],
-  entry: "./lib/inaturalistjs.js",
+  entry: "./lib/minkajs.js",
   output: {
-    filename: "inaturalistjs.js",
+    filename: "minkajs.js",
     path: path.resolve( __dirname, "build" ),
     libraryTarget: "commonjs"
   },

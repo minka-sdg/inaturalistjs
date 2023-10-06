@@ -1,7 +1,7 @@
 const { expect } = require( "chai" );
 const util = require( "../lib/util" );
 
-describe( "iNaturalistAPI", ( ) => {
+describe( "MINKAAPI", ( ) => {
   describe( "isBrowser", ( ) => {
     it( "returns true if document.querySelector is defined", ( ) => {
       expect( util.isBrowser( ) ).to.be.false;

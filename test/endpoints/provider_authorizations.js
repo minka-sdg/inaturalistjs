@@ -1,6 +1,6 @@
 const { expect } = require( "chai" );
 const nock = require( "nock" );
-const iNaturalistAPI = require( "../../lib/inaturalist_api" );
+const MINKAAPI = require( "../../lib/minka_api" );
 const providerAuthorizations = require( "../../lib/endpoints/provider_authorizations" );
 
 describe( "ProviderAuthorizations", ( ) => {
@@ -39,8 +39,8 @@ describe( "ProviderAuthorizations", ( ) => {
       } );
     } );
     it( "deletes to /v1/provider_authorizations if writing to node", done => {
-      const existing = iNaturalistAPI.writeApiURL;
-      iNaturalistAPI.writeApiURL = "http://localhost:4000/v1";
+      const existing = MINKAAPI.writeApiURL;
+      MINKAAPI.writeApiURL = "http://localhost:4000/v1";
       const nockScope = nock( "http://localhost:4000" )
         .delete( "/v1/provider_authorizations/1" )
         .reply( 200, {} );
@@ -48,7 +48,7 @@ describe( "ProviderAuthorizations", ( ) => {
         nockScope.done( );
         done( );
       } );
-      iNaturalistAPI.writeApiURL = existing;
+      MINKAAPI.writeApiURL = existing;
     } );
   } );
 } );

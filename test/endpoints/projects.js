@@ -11,7 +11,7 @@ describe( "Projects", ( ) => {
         .reply( 200, testHelper.mockResponse );
       projects.fetch( 1 ).then( r => {
         expect( r.test_uri ).to.eq( "/v1/projects/1" );
-        expect( r.constructor.name ).to.eq( "iNaturalistAPIResponse" );
+        expect( r.constructor.name ).to.eq( "MINKAAPIResponse" );
         expect( r.total_results ).to.eq( 1 );
         expect( r.results[0].constructor.name ).to.eq( "Project" );
         expect( r.results[0].id ).to.eq( 1 );

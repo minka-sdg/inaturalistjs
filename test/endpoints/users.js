@@ -1,21 +1,21 @@
 const { expect } = require( "chai" );
 const _ = require( "lodash" );
 const nock = require( "nock" );
-const iNaturalistAPI = require( "../../lib/inaturalist_api" );
+const MINKAAPI = require( "../../lib/minka_api" );
 const users = require( "../../lib/endpoints/users" );
 const testHelper = require( "../../lib/test_helper" );
 
 const v1ToV2 = ( ) => {
-  iNaturalistAPI.setConfig( {
-    apiURL: iNaturalistAPI.apiURL.replace( "/v1", "/v2" ),
-    writeApiURL: iNaturalistAPI.apiURL.replace( "/v1", "/v2" )
+  MINKAAPI.setConfig( {
+    apiURL: MINKAAPI.apiURL.replace( "/v1", "/v2" ),
+    writeApiURL: MINKAAPI.apiURL.replace( "/v1", "/v2" )
   } );
 };
 
 const v2ToV1 = ( ) => {
-  iNaturalistAPI.setConfig( {
-    apiURL: iNaturalistAPI.apiURL.replace( "/v2", "/v1" ),
-    writeApiURL: iNaturalistAPI.apiURL.replace( "/v2", "/v1" )
+  MINKAAPI.setConfig( {
+    apiURL: MINKAAPI.apiURL.replace( "/v2", "/v1" ),
+    writeApiURL: MINKAAPI.apiURL.replace( "/v2", "/v1" )
   } );
 };
 
@@ -31,7 +31,7 @@ describe( "Users", ( ) => {
         .reply( 200, testHelper.mockResponse );
       users.fetch( 1 ).then( r => {
         expect( r.test_uri ).to.eq( "/v1/users/1" );
-        expect( r.constructor.name ).to.eq( "iNaturalistAPIResponse" );
+        expect( r.constructor.name ).to.eq( "MINKAAPIResponse" );
         expect( r.total_results ).to.eq( 1 );
         expect( r.results[0].constructor.name ).to.eq( "User" );
         expect( r.results[0].id ).to.eq( 1 );
